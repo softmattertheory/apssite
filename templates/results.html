@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+<title>APS March Meeting 2021 Discovery Tool</title>
+<link rel="stylesheet" type="text/css" href="/static/style.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://d3js.org/d3.v6.min.js"></script>
+<script src="/static/visresults.js"></script>
+</head>
+
+<body id="top">
+	<header>
+  <div class="page">
+    <div class="main-column">
+      <h1>APS March Meeting 2021</h1>
+      <h2>A prototype search and discovery tool</h2>
+			<img class="logo" src="/static/iflogo.png"/>
+    </div>
+  </div>
+	</header>
+
+	<div class="page">
+		<main>
+			<p>We found the following talks that may be of interest to you. You can also browse talks in the same session by moving your mouse over the interactive display.</p>
+
+			<form action="/" method="get" style="text-align:center;">
+				<input type="submit" value="Try another search"></input>
+			</form>
+			<p></p>
+
+			<div class="visualresults"></div>
+
+			<div class="results">
+				<p id="results"></p>
+			</div>
+
+			<script>
+				var res = JSON.parse('{{ resultsSVD | tojson | safe}}');;
+				var num = JSON.parse('{{ num_resultsSVD | tojson | safe}}');;
+				var text = "<table>";
+				text+="<tr><td>Score</td><td>Abstract</td></tr>";
+				var i;
+				for (i = 0; i < num; i++) {
+					text += "<tr><td>" + res[i].score + "</td><td><a href=\"" + res[i].link + "\" target=\"_blank\"> " + res[i].title + "</a>" + "<br>" + res[i].abstract + "</tr></tr>";
+				}
+				text+="</table>"
+				document.getElementById("results").innerHTML = text;
+
+				displayResults('.visualresults', res)
+
+	    </script>
+		</main>
+	</div>
+	<footer>
+  <div class="page">
+    <div class="main-column">
+    <p>Created by J. Collins, M. Q. Giso, D. Ngetich, C. Delorey and T. J. Atherton of the <a href="http://sites.tufts.edu/softmattertheory/">Soft Matter Theory group at Tufts University</a> with support from the APS Innovations Fund.</p>
+    <div class="main-column">
+  </div>
+</footer>
+
+</body>
+
+</html>

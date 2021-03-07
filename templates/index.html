@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+<title>APS March Meeting 2021 Discovery Tool</title>
+<link rel="stylesheet" type="text/css" href="/static/style.css" />
+</head>
+
+<body id="top">
+	<header>
+  <div class="page">
+    <div class="main-column">
+      <h1>APS March Meeting 2021</h1>
+      <h2>A prototype search and discovery tool</h2>
+			<img class="logo" src="/static/iflogo.png"/>
+    </div>
+  </div>
+	</header>
+
+	<div class="page">
+		<main>
+			<h2></h2>
+			<p>This site aims to <b>help you find talks of interest</b> at the APS March Meeting 2021.
+				 To use it, please type some text about your work (you could type a few words or cut & paste an abstract from a recent publication or talk, for example)
+					and we'll suggest some talks that seem related.</p>
+			<form action="/process" method="post">
+				<textarea type="text" name="abstr" rows="8" cols="110"></textarea>
+				<input type="submit" value="Search"></input>
+			</form>
+
+			<p>
+				The prototype has been created as part of an APS Innovations Fund project <a href="https://www.aps.org/programs/innovation/fund/fund19.cfm">"More Humane APS Meetings through Machine Learning"</a>.
+			</p>
+			</main>
+	</div>
+	<footer>
+  <div class="page">
+    <div class="main-column">
+    <p>Created by J. Collins, M. Q. Giso, D. Ngetich, C. Delorey and T. J. Atherton of the <a href="http://sites.tufts.edu/softmattertheory/">Soft Matter Theory group at Tufts University</a> with support from the APS Innovations Fund.</p>
+    <div class="main-column">
+  </div>
+</footer>
+
+</body>
+
+</html>
