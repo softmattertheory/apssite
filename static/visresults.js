@@ -4,6 +4,11 @@ function onlyUnique(value, index, self) {
   return self.indexOf(value) === index;
 }
 
+// Pad a number with leading zeros
+function pad(num, size){
+  return ('000000000' + num).substr(-size);
+}
+
 // Compares start times for sorting
 function comparestarttimes(a,b) {
   return a.start - b.start
@@ -179,6 +184,11 @@ function draw(container, query, sessions, talks) {
      .attr('width',width)
      .attr('height',height)
 
+
+   function clicked(event, d) {
+     window.open(d.link, '_blank');
+   }
+
   const g = svg.append("g")
     .selectAll("path")
     .data(showtalks)
@@ -189,7 +199,7 @@ function draw(container, query, sessions, talks) {
     .on("mouseover",
         function (event, d, i) {
           event.currentTarget.style.fill = "rgb(0, 0,0)";
-          tooltip.html(`<div style="font-family:helvetica;font-size:12">${d.id}: ${d.title}</div>`).style('visibility', 'visible');
+          tooltip.html(`<div style="font-family:helvetica;font-size:12">${d.id}.${pad(d.eventid,5)}: ${d.title}</div>`).style('visibility', 'visible');
         })
     .on('mousemove',
         function (e) {
@@ -201,7 +211,8 @@ function draw(container, query, sessions, talks) {
         function (event) {
            event.currentTarget.style.fill = "";
            tooltip.html(``).style('visibility', 'hidden');
-        });
+        })
+    .on("click", clicked);
 
   g.append("rect")
     .attr("width", rectwidth)
@@ -247,6 +258,8 @@ function displayResults(container, query) {
        authors: d[4],
        units: d[5],
        tags: d[6],
+       eventid: d[7],
+       link: d[8],
        color: "rgb(210,210,210)"
       }
     });
