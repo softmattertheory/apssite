@@ -22,7 +22,7 @@
 
 	<div class="page">
 		<main>
-			<p>We found the following talks that may be of interest to you. You can also browse talks in the same session by moving your mouse over the interactive display.</p>
+			<p id="explanation">We found the following highlighted talks that may be of interest to you. You can also browse talks in the same session by moving your mouse around the interactive display. After you've reviewed the suggestions, we'd love to <a href="https://tufts.qualtrics.com/jfe/form/SV_0DLjdu86ZdE4MWW">hear about your experience.</a></p>
 
 			<form action="/" method="get" style="text-align:center;">
 				<input type="submit" value="Try another search"></input>
@@ -38,16 +38,24 @@
 			<script>
 				var res = JSON.parse('{{ resultsSVD | tojson | safe}}');;
 				var num = JSON.parse('{{ num_resultsSVD | tojson | safe}}');;
-				var text = "<table>";
-				text+="<tr><td>Score</td><td>Abstract</td></tr>";
-				var i;
-				for (i = 0; i < num; i++) {
-					text += "<tr><td>" + res[i].score + "</td><td><a href=\"" + res[i].link + "\" target=\"_blank\"> " + res[i].title + "</a>" + "<br>" + res[i].abstract + "</tr></tr>";
-				}
-				text+="</table>"
-				document.getElementById("results").innerHTML = text;
 
-				displayResults('.visualresults', res)
+				if (res[0].score>0.001) {
+						var text = "<table>";
+						text+="<tr><td>Score</td><td>Abstract</td></tr>";
+
+						for (var i = 0; i < num; i++) {
+							if (res[i].score>0.9) continue;
+							text += "<tr><td>" + res[i].score + "</td><td><a href=\"" + res[i].link + "\" target=\"_blank\"> " + res[i].title + "</a>" + "<br>" + res[i].abstract + "</tr></tr>";
+						}
+						text+="</table>"
+						document.getElementById("results").innerHTML = text;
+
+						displayResults('.visualresults', res)
+				} else {
+						var text = "Unfortunately we didn't find any results that seem to match your search."
+
+						document.getElementById("explanation").innerHTML = text;
+				}
 
 	    </script>
 		</main>
@@ -55,7 +63,7 @@
 	<footer>
   <div class="page">
     <div class="main-column">
-    <p>Created by J. Collins, M. Q. Giso, D. Ngetich, C. Delorey and T. J. Atherton of the <a href="http://sites.tufts.edu/softmattertheory/">Soft Matter Theory group at Tufts University</a> with support from the APS Innovations Fund.</p>
+    <p>Created by J. Collins, M. Q. Giso, D. Ngetich, C. DeLorey and T. J. Atherton of the <a href="http://sites.tufts.edu/softmattertheory/">Soft Matter Theory group at Tufts University</a> with support from the APS Innovations Fund.</p>
     <div class="main-column">
   </div>
 </footer>
